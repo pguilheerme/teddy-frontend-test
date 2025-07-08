@@ -16,7 +16,7 @@ export default defineConfig({
         "./BaseModal": "./src/components/Modals/BaseModal.tsx",
         "./Pagination": "./src/components/Pagination/Pagination.tsx",
         "./Header": "./src/components/Header/Header.tsx",
-        "./LogoTeddy": "./src/brand/LogoTeddy.svg",
+        "./Loading": "./src/components/Loading/Loading.tsx",
       },
       shared: ["react", "react-dom"],
     }),

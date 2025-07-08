@@ -14,10 +14,13 @@ import { useUpdateCustomer } from "../../domain/useCases/useUpdateCustomer";
 import DeleteCustomerModal from "../../components/CustomerModals/DeleteCustomerModal/DeleteCustomerModal";
 import { useDeleteCustomer } from "../../domain/useCases/useDeleteCustomers";
 import { useSelectedCustomersStore } from "../../stores/useSelectedCustomersStore";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PageContainer = lazy(() => import("designSystem/PageContainer"));
 const Button = lazy(() => import("designSystem/Button"));
 const Pagination = lazy(() => import("designSystem/Pagination"));
+const Loading = lazy(() => import("designSystem/Loading"));
 
 export default function CustomersPage() {
   const [page, setPage] = useState(1);
@@ -71,7 +74,34 @@ export default function CustomersPage() {
     setSelected({} as UpdateCustomerSchemaType);
   };
 
-  if (isLoading) return <div>loading...</div>;
+  const handleSelectCustomer = (customer: UpdateCustomerSchemaType) => {
+    addCustomer(customer);
+    toast.success("Cliente selecionado com sucesso", {
+      position: "top-right",
+      autoClose: 1000,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      theme: "light",
+    });
+  };
+
+  if (isLoading)
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "70vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#f5f5f5",
+        }}
+      >
+        <Loading size={48} />
+      </div>
+    );
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
@@ -80,6 +110,7 @@ export default function CustomersPage() {
         <div
           style={{
             width: "100%",
+            height: "70vh",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -87,10 +118,11 @@ export default function CustomersPage() {
             backgroundColor: "#f5f5f5",
           }}
         >
-          Loading...
+          <Loading size={48} />
         </div>
       }
     >
+      <ToastContainer />
       <PageContainer
         style={{
           width: "100%",
@@ -117,9 +149,7 @@ export default function CustomersPage() {
                 companyValuation={customer.companyValuation}
                 salary={customer.salary}
                 key={customer.id}
-                onPlusClick={() => {
-                  addCustomer(customer);
-                }}
+                onPlusClick={() => handleSelectCustomer(customer)}
                 onEditClick={() => {
                   setSelected(customer);
                   setIsEditModalOpen(true);

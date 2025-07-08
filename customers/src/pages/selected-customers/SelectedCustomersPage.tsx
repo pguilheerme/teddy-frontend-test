@@ -2,9 +2,12 @@ import "./selectedCustomers.style.css";
 import { lazy, Suspense } from "react";
 import { CustomerCard } from "../../components/CustomerCard/CustomerCard";
 import { useSelectedCustomersStore } from "../../stores/useSelectedCustomersStore";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PageContainer = lazy(() => import("designSystem/PageContainer"));
 const Button = lazy(() => import("designSystem/Button"));
+const Loading = lazy(() => import("designSystem/Loading"));
 
 export default function SelectedCustomersPage() {
   const { clearCustomers, selectedCustomers, removeCustomer } =
@@ -24,6 +27,7 @@ export default function SelectedCustomersPage() {
         <div
           style={{
             width: "100%",
+            height: "70vh",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -31,10 +35,11 @@ export default function SelectedCustomersPage() {
             backgroundColor: "#f5f5f5",
           }}
         >
-          Loading...
+          <Loading size={48} />
         </div>
       }
     >
+      <ToastContainer />
       <PageContainer
         style={{
           width: "100%",
@@ -50,11 +55,13 @@ export default function SelectedCustomersPage() {
             <h2 className="title">Clientes Selecionados:</h2>
           </div>
 
-          <div className="customer-cards-grid">
-            {selectedCustomers.length === 0 ? (
+          {selectedCustomers.length === 0 ? (
+            <div className="no-customers">
               <p>Nenhum cliente selecionado</p>
-            ) : (
-              selectedCustomers.map((customer) => (
+            </div>
+          ) : (
+            <div className="customer-cards-grid">
+              {selectedCustomers.map((customer) => (
                 <CustomerCard
                   key={customer.id}
                   name={customer.name}
@@ -65,9 +72,9 @@ export default function SelectedCustomersPage() {
                   selected={true}
                   onPlusClick={() => handleRemove(customer.id)}
                 />
-              ))
-            )}
-          </div>
+              ))}
+            </div>
+          )}
 
           {selectedCustomers.length > 0 && (
             <Button

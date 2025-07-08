@@ -5,6 +5,7 @@ import { moneyMask } from "../../../utils/moneyMask";
 const TextInput = lazy(() => import("designSystem/TextInput"));
 const Button = lazy(() => import("designSystem/Button"));
 const BaseModal = lazy(() => import("designSystem/BaseModal"));
+const Loading = lazy(() => import("designSystem/Loading"));
 
 export interface EditCustomerModalProps {
   isOpen: boolean;
@@ -33,6 +34,7 @@ export default function EditCustomerModal({
   const [salary, setSalary] = useState("");
   const [companyValuation, setCompanyValuation] = useState("");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (selected) {
@@ -60,30 +62,35 @@ export default function EditCustomerModal({
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    setIsLoading(true);
+    try {
+      e.preventDefault();
 
-    const newErrors = validate();
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
+      const newErrors = validate();
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+      }
+
+      const parsedSalary = parseFloat(
+        salary.replace("R$", "").replace(/\./g, "").replace(",", ".")
+      );
+
+      const parsedCompanyValuation = parseFloat(
+        companyValuation.replace("R$", "").replace(/\./g, "").replace(",", ".")
+      );
+
+      onEdit({
+        id: selected.id,
+        name,
+        salary: parsedSalary,
+        companyValuation: parsedCompanyValuation,
+      });
+
+      onClose();
+    } finally {
+      setIsLoading(false);
     }
-
-    const parsedSalary = parseFloat(
-      salary.replace("R$", "").replace(/\./g, "").replace(",", ".")
-    );
-
-    const parsedCompanyValuation = parseFloat(
-      companyValuation.replace("R$", "").replace(/\./g, "").replace(",", ".")
-    );
-
-    onEdit({
-      id: selected.id,
-      name,
-      salary: parsedSalary,
-      companyValuation: parsedCompanyValuation,
-    });
-
-    onClose();
   };
 
   return (
@@ -123,7 +130,11 @@ export default function EditCustomerModal({
             fullWidth
           />
 
-          <Button text="Editar cliente" fullWidth />
+          <Button
+            text={isLoading ? <Loading size={15} /> : "Editar cliente"}
+            fullWidth
+            disabled={isLoading}
+          />
         </form>
       </div>
     </BaseModal>

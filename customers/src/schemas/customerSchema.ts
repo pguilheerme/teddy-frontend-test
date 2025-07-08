@@ -4,8 +4,10 @@ export const CreateCustomerSchema = z.object({
   name: z
     .string()
     .min(2, "Nome é obrigatório e deve ter pelo menos 2 caracteres"),
-  salary: z.number().min(1, "Salário não pode ser negativo"),
-  companyValuation: z.number().min(1, "Valor da empresa não pode ser negativo"),
+  salary: z.number().nonnegative("Salário deve ser um positivo"),
+  companyValuation: z
+    .number()
+    .nonnegative("Valor da empresa deve ser positivo deve ser um positivo"),
 });
 
 export const UpdateCustomerSchema = z.object({

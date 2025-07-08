@@ -18,8 +18,13 @@ export const useSelectedCustomersStore = create<SelectedCustomersState>()(
       selectedCustomers: [],
       setCustomers: (customers) => set({ selectedCustomers: customers }),
       addCustomer: (customer) => {
-        const updated = [...get().selectedCustomers, customer];
-        set({ selectedCustomers: updated });
+        const currentCustomers = get().selectedCustomers;
+        const exists = currentCustomers.some((c) => c.id === customer.id);
+
+        if (!exists) {
+          const updated = [...currentCustomers, customer];
+          set({ selectedCustomers: updated });
+        }
       },
       removeCustomer: (id) => {
         const updated = get().selectedCustomers.filter((c) => c.id !== id);

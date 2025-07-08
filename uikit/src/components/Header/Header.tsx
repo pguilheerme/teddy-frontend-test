@@ -38,6 +38,7 @@ export default function Header({ userName, navItems, onExit }: HeaderProps) {
         isOpen={showFloat}
         navItems={navItems}
         onClose={() => setShowFloat(false)}
+        onExit={onExit}
       />
 
       <button

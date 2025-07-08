@@ -11,6 +11,7 @@ import { moneyMask } from "../../../utils/moneyMask";
 const TextInput = lazy(() => import("designSystem/TextInput"));
 const Button = lazy(() => import("designSystem/Button"));
 const BaseModal = lazy(() => import("designSystem/BaseModal"));
+const Loading = lazy(() => import("designSystem/Loading"));
 
 export interface CreateCustomerModalProps {
   isOpen: boolean;
@@ -104,7 +105,17 @@ export default function CreateCustomerModal({
             )}
           />
 
-          <Button text="Criar cliente" fullWidth />
+          <Button
+            text={
+              form.formState.isSubmitting ? (
+                <Loading size={15} />
+              ) : (
+                "Criar cliente"
+              )
+            }
+            fullWidth
+            disabled={!form.formState.isValid || form.formState.isSubmitting}
+          />
         </form>
       </div>
     </BaseModal>

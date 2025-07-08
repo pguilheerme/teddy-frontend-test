@@ -4,6 +4,7 @@ import { useUserNameFromCookie } from "./hooks/useUserNameFromCookie";
 import { useLogout } from "./hooks/useLogout";
 
 const Header = lazy(() => import("designSystem/Header"));
+const Loading = lazy(() => import("designSystem/Loading"));
 
 const navItems: { path: string; label: string }[] = [
   { path: "/customers", label: "Clientes" },
@@ -22,7 +23,13 @@ export function RootLayout() {
         backgroundColor: "#f5f5f5",
       }}
     >
-      <Suspense fallback={<div>Carregando header...</div>}>
+      <Suspense
+        fallback={
+          <div>
+            <Loading size={30} />
+          </div>
+        }
+      >
         <Header
           userName={userName ?? "Usuário"}
           navItems={navItems}

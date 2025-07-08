@@ -33,6 +33,17 @@ export default function Sidebar({
     window.location.href = navItems[index].path;
   };
 
+  const getIconForItem = (item: NavItem) => {
+    if (
+      item.label.toLowerCase().includes("selected") ||
+      item.path.includes("selected")
+    ) {
+      return selectUserIcon;
+    } else {
+      return userIcon;
+    }
+  };
+
   return (
     <aside className={`sidebar ${isOpen ? "sidebar--open" : ""}`}>
       <div className="sidebar-header">
@@ -56,6 +67,11 @@ export default function Sidebar({
               handleNav(index);
             }}
           >
+            <img
+              className="sidebar_icon"
+              src={getIconForItem(item)}
+              alt={`${item.label} icon`}
+            />
             {item.label}
           </a>
         ))}

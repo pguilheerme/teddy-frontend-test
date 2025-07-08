@@ -1,7 +1,8 @@
 import "./deleteCustomerModal.style.css";
-import { lazy } from "react";
+import { lazy, useState } from "react";
 import { type UpdateCustomerSchemaType } from "../../../schemas/customerSchema";
 
+const Loading = lazy(() => import("designSystem/Loading"));
 const Button = lazy(() => import("designSystem/Button"));
 const BaseModal = lazy(() => import("designSystem/BaseModal"));
 
@@ -18,7 +19,17 @@ export default function DeleteCustomerModal({
   onDelete,
   selected,
 }: DeleteCustomerModalProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const userName = selected.name;
+
+  const handleDelete = async () => {
+    setIsLoading(true);
+    try {
+      await onDelete(selected);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <BaseModal title="Excluir cliente:" isOpen={isOpen} onClose={onClose}>
@@ -26,7 +37,12 @@ export default function DeleteCustomerModal({
         <span>
           Você está prestes a excluir o cliente: <strong>{userName}</strong>
         </span>
-        <Button text="Excluir cliente" onClick={onDelete} fullWidth />
+        <Button
+          text={isLoading ? <Loading size={15} /> : "Excluir cliente"}
+          onClick={handleDelete}
+          fullWidth
+          disabled={isLoading}
+        />
       </div>
     </BaseModal>
   );
