@@ -131,6 +131,7 @@ export default function EditCustomerModal({
           />
 
           <Button
+            id="edit-customer-button"
             text={isLoading ? <Loading size={15} /> : "Editar cliente"}
             fullWidth
             disabled={isLoading}

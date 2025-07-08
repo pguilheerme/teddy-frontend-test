@@ -106,6 +106,7 @@ export default function CreateCustomerModal({
           />
 
           <Button
+            id="create-customer-button"
             text={
               form.formState.isSubmitting ? (
                 <Loading size={15} />
