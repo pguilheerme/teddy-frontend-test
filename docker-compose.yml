@@ -1,0 +1,40 @@
+services:
+  app-root:
+    build: ./root
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    env_file:
+      - .env
+
+  app-customers:
+    build: ./customers
+    ports:
+      - "3001:3001"
+    networks:
+      - app-network
+    env_file:
+      - .env
+
+  app-uikit:
+    build: ./uikit
+    ports:
+      - "3002:3002"
+    networks:
+      - app-network
+    env_file:
+      - .env
+
+  app-welcome:
+    build: ./welcome
+    ports:
+      - "3003:3003"
+    networks:
+      - app-network
+    env_file:
+      - .env
+
+networks:
+  app-network:
+    driver: bridge

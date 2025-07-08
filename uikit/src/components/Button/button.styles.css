@@ -1,0 +1,59 @@
+@import "../../theme/index.css";
+
+.button-wrapper {
+  height: 40px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.button-wrapper.solid {
+  background-color: var(--teddy-orange);
+  color: white;
+  border: none;
+}
+
+.button-wrapper.solid:hover {
+  opacity: 0.8;
+}
+
+.button-wrapper.outlined {
+  background-color: transparent;
+  color: var(--teddy-orange);
+  border: 2px solid var(--teddy-orange);
+}
+
+.button-wrapper.outlined:hover {
+  background-color: var(--teddy-orange);
+  color: white;
+}
+
+.button-wrapper:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button-wrapper.small {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+}
+
+.button-wrapper.large {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  font-size: var(--font-size-lg);
+}
+
+.button-wrapper.full-width {
+  width: 100%;
+}
+
+.button-icon {
+  display: flex;
+  align-items: center;
+}

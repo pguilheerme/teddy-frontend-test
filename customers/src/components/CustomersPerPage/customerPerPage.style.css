@@ -1,0 +1,20 @@
+.top-wrapper {
+  display: flex;
+  width: 100%;
+  padding: 10px 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.limit-select {
+  background-color: transparent;
+  padding: 5px 8px;
+  border-radius: 4px;
+  border: 1px solid #d9d9d9;
+}
