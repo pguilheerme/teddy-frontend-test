@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import federation from "@originjs/vite-plugin-federation";
 
 export default ({ mode }: { mode: string }) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+  const env = loadEnv(mode, process.cwd(), "");
 
   return defineConfig({
     plugins: [
@@ -13,13 +13,13 @@ export default ({ mode }: { mode: string }) => {
         filename: "remoteEntry.js",
         remotes: {
           customers: `${
-            process.env.VITE_CUSTOMERS_MFE_URL || "http://localhost:3001"
+            env.VITE_CUSTOMERS_MFE_URL || "http://localhost:3001"
           }/assets/remoteEntry.js`,
           designSystem: `${
-            process.env.VITE_DESIGN_SYSTEM_MFE_URL || "http://localhost:3002"
+            env.VITE_DESIGN_SYSTEM_MFE_URL || "http://localhost:3002"
           }/assets/remoteEntry.js`,
           welcome: `${
-            process.env.VITE_WELCOME_MFE_URL || "http://localhost:3003"
+            env.VITE_WELCOME_MFE_URL || "http://localhost:3003"
           }/assets/remoteEntry.js`,
         },
         shared: [

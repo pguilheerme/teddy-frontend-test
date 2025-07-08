@@ -4,7 +4,7 @@ import federation from "@originjs/vite-plugin-federation";
 
 // https://vite.dev/config/
 export default ({ mode }: { mode: string }) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+  const env = loadEnv(mode, process.cwd(), "");
 
   return defineConfig({
     plugins: [
@@ -21,7 +21,7 @@ export default ({ mode }: { mode: string }) => {
         },
         remotes: {
           designSystem: `${
-            process.env.VITE_DESIGN_SYSTEM_MFE_URL || "http://localhost:3002"
+            env.VITE_DESIGN_SYSTEM_MFE_URL || "http://localhost:3002"
           }/assets/remoteEntry.js`,
         },
         shared: [
