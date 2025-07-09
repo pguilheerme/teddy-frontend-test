@@ -2,9 +2,17 @@ import "./editCustomerModal.style.css";
 import { lazy, useEffect, useState } from "react";
 import { moneyMask } from "../../../utils/moneyMask";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-expect-error
 const TextInput = lazy(() => import("designSystem/TextInput"));
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-expect-error
 const Button = lazy(() => import("designSystem/Button"));
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-expect-error
 const BaseModal = lazy(() => import("designSystem/BaseModal"));
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-expect-error
 const Loading = lazy(() => import("designSystem/Loading"));
 
 export interface EditCustomerModalProps {

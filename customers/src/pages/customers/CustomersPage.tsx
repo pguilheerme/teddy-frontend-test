@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import CustomersPerPage from "../../components/CustomersPerPage/CustomersPerPage";
 import { useCustomers } from "../../domain/useCases/useCostumers";
 import { CustomerCard } from "../../components/CustomerCard/CustomerCard";
@@ -34,13 +34,19 @@ export default function CustomersPage() {
   const createCustomer = useCreateCustomer();
   const updateCustomer = useUpdateCustomer();
   const deleteCustomer = useDeleteCustomer();
-  const { addCustomer } = useSelectedCustomersStore();
+  const { addCustomer, selectedCustomers } = useSelectedCustomersStore();
 
   const { data, isLoading, isError, error } = useCustomers(page, limit);
 
   const totalPages = data?.totalPages || 1;
   const currentPage = data?.currentPage || 1;
-  const customers = data?.clients || [];
+  const customers = useMemo(() => {
+    const allCustomers = data?.clients || [];
+    return allCustomers.filter(
+      (customer) =>
+        !selectedCustomers.some((selected) => selected.id === customer.id)
+    );
+  }, [data?.clients, selectedCustomers]);
 
   const handleClose = (index: number) => {
     switch (index) {
