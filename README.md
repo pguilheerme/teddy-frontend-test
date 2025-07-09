@@ -116,6 +116,13 @@ O projeto utiliza arquitetura de microfrontends com o plugin `@originjs/vite-plu
 
 ---
 
+### 🎥 Demonstração
+
+Acesse o vídeo de demonstração no YouTube:  
+👉 [https://youtu.be/gGxOEtFNLf8](https://youtu.be/gGxOEtFNLf8)
+
+---
+
 ### 🧑‍💻 Autor
 
 Desenvolvido por [Pedro Guilherme](https://github.com/pguilheerme) ✨
