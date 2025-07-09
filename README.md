@@ -53,37 +53,19 @@ cd teddy-frontend-test
 - Renomeie o arquivo `.env.example` para `.env`:
 
 ```env
-# root/.env
+#.env
 VITE_CUSTOMERS_MFE_URL=http://localhost:3001
 VITE_DESIGN_SYSTEM_MFE_URL=http://localhost:3002
 VITE_WELCOME_MFE_URL=http://localhost:3003
 VITE_API_URL=http://sua-api.local
 ```
 
-- Crie também um arquivo `.env` na pasta `customers/`, especificando a URL da API:
-
-```env
-# customers/.env
-VITE_API_URL=http://sua-api.local
-```
-
-3. **Instale as dependências**
-
-Execute `npm install` ou `yarn` em **cada microfrontend e no root**:
-
-```bash
-cd root && npm install
-cd ../customers && npm install
-cd ../designSystem && npm install
-cd ../welcome && npm install
-```
-
-4. **Suba os containers com Docker**
+3. **Suba os containers com Docker**
 ```bash
 docker compose up -d
 ```
 
-5. **Acesse a aplicação no navegador**
+4. **Acesse a aplicação no navegador**
 
 [http://localhost:3000](http://localhost:3000)
 
@@ -96,12 +78,14 @@ Os testes estão localizados no microfrontend `root`:
 - **NPM**
 ```bash
 cd root
+npm install
 npm run test
 ```
 
 - **Yarn**
 ```bash
 cd root
+yarn
 yarn test
 ```
 
