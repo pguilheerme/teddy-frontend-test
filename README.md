@@ -18,7 +18,7 @@ O projeto está estruturado com foco em boas práticas e tecnologias modernas:
 
 - 🐳 **Docker Compose** — Para orquestração local  
 - ⚙️ **TypeScript** — Tipagem estática  
-- 🧪 **Jest** — Testes unitários  
+- 🎭 **Playwright** — Testes end-to-end automatizados  
 - 🔐 **Husky (pré-commit)** — Garantia de qualidade de código  
 - 📋 **react-hook-form + zod** — Validação e manipulação de formulários  
 - 📦 **Zustand** — Gerenciamento de estado global  
